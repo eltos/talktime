@@ -64,9 +64,9 @@ shareBtn.onclick = () => {
   if (presetIndex >= 0) url.searchParams.set("preset", presetIndex.toString());
   const presets = [...presetContainer.children].map((div) => `${div.dataset.talk} + ${div.dataset.qa}`).join("|");
   if (presets) url.searchParams.set("presets", presets);
-  navigator.clipboard.writeText(url.toString()).then(r =>
+  navigator.clipboard.writeText(url.toString()).then(() =>
     window.alert("Persistent link was copied to the clipboard")
-  ).catch(r =>
+  ).catch(() =>
     window.prompt("Persistent link:", url.toString())
   );
 }
@@ -87,7 +87,7 @@ autorunButton.onclick = () => {
   }
   updateDisplay();
 };
-orangeInput.onchange = (e) => {
+orangeInput.onchange = () => {
   orangeTime = Number.parseFloat(orangeInput.value) / 100;
   if (redTime < orangeTime) {
     orangeTime = redTime;
@@ -95,7 +95,7 @@ orangeInput.onchange = (e) => {
   }
   updateDisplay();
 }
-redInput.onchange = (e) => {
+redInput.onchange = () => {
   redTime = Number.parseFloat(redInput.value) / 100;
   if (redTime < orangeTime) {
     orangeTime = redTime;
@@ -160,7 +160,7 @@ function colorAt(f) {
 }
 
 function updateTime(display, remaining, duration) {
-  display.querySelector('.minutes').textContent = Math.floor(remaining / 60).toString().padStart(2, '0');
+  display.querySelector('.minutes').textContent = Math.floor(remaining / 60).toString();
   display.querySelector('.seconds').textContent = Math.floor(remaining % 60).toString().padStart(2, '0');
   if (duration === 0) {
     display.style.display = "none";

@@ -108,7 +108,7 @@ button:hover {
 }
 
 .time-row {
-  font-size: 10vw;
+  font-size: 8vw;
   font-family: "Arial", sans-serif;
   align-items: center;
   color: #ccc;
@@ -118,7 +118,6 @@ button:hover {
 
 .time-row .step {
   width: 30vw;
-  font-size: 8vw;
 }
 
 .time-row .minutes {
@@ -127,7 +126,7 @@ button:hover {
   width: 20vw;
   font-weight: bold;
   font-size: 20vw;
-  padding: 2vh 2vw 2vh 10vw;
+  padding: 2vh 3vw 2vh 10vw;
 }
 
 .time-row .seconds {
@@ -135,7 +134,7 @@ button:hover {
   justify-content: start;
   width: 30vw;
   font-weight: lighter;
-  padding-left: 2vw;
+  padding-left: 3vw;
 }
 
 #progress-bar {
