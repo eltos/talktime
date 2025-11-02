@@ -1,0 +1,171 @@
+/* Konferenz-Look Styling */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.config-bar {
+  background: #222;
+  color: #ccc;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+#presets {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.config-inputs {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: end;
+}
+
+.config-inputs input {
+  color: #ccc;
+  border: 1px solid #111;
+  border-radius: 0.25rem;
+  background-color: #2227;
+  width: 2em;
+  text-align: end;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.config-clock {
+  flex-grow: 1;
+  align-content: center;
+  text-align: center;
+  font-size: 2em;
+  user-select: none;
+}
+
+button {
+  color: #ccc;
+  font-size: 1.2rem;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #111;
+  border-radius: 0.5rem;
+  background-color: #2227;
+  padding: 0.2rem 0.2rem;
+  transition: background-color 0.2s, opacity 0.2s;
+  user-select: none;
+  min-width: 45px;
+  min-height: 45px;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #003d99;
+}
+
+.autorun {
+  background-color: #003d9970;
+}
+
+.preset {
+  font-size: 1em;
+  padding: 0.5rem 0.5rem;
+}
+
+#presets {
+  flex-wrap: wrap;
+}
+
+#timer-display {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+}
+
+.time-row {
+  font-size: 10vw;
+  font-family: "Arial", sans-serif;
+  align-items: center;
+  color: #ccc;
+  line-height: 0.9;
+  display: flex;
+}
+
+.time-row .step {
+  width: 30vw;
+  font-size: 8vw;
+}
+
+.time-row .minutes {
+  display: flex;
+  justify-content: end;
+  width: 20vw;
+  font-weight: bold;
+  font-size: 20vw;
+  padding: 2vh 2vw 2vh 10vw;
+}
+
+.time-row .seconds {
+  display: flex;
+  justify-content: start;
+  width: 30vw;
+  font-weight: lighter;
+  padding-left: 2vw;
+}
+
+#progress-bar {
+  width: 100%;
+  height: 5vh;
+  background: #222;
+}
+
+#progress {
+  width: 0;
+  height: 100%;
+  transition: width 0.1s ease-in-out;
+}
+
+
+.blink {
+  animation: blink 1s steps(10, start) infinite;
+}
+
+@keyframes blink {
+  25% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+}

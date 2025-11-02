@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vortragstimer</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div class="config-bar">
+  <button id="pin-btn" title="Add preset">📌</button>
+  <div id="presets"></div>
+  <div class="config-inputs">
+    <label>Talk: <input type="number" id="talk-time" min="1"> min</label>
+    <label>Q/A: <input type="number" id="qa-time" min="0"> min</label>
+  </div>
+  <button id="reset-btn" title="Reset timer (Hotkey: r)">🔄</button>
+  <button id="start-btn" title="Start timer (Hotkey: s)">▶️</button>
+  <button id="pause-btn" title="Pause timer">⏸️</button>
+  <button id="autorun-btn" title="Toggle autorun loop">⏩️</button>
+  <div class="config-clock" id="clock">00:00:00</div>
+  <div class="config-inputs">
+    <label>Orange: <input type="number" id="orange-percent" min="0" max="100"> %</label>
+    <label>Red: <input type="number" id="red-percent" min="0" max="100"> %</label>
+  </div>
+  <button id="share-btn" title="Share persistent link">🔗</button>
+  <button id="mute-btn" title="Toggle beep sound">🔇</button>
+  <button id="fullscreen-btn" title="Toggle fullscreen">⛶</button>
+</div>
+
+<div id="timer-display">
+  <div class="time-row" id="talk-display">
+    <span class="step">Talk</span><span class="minutes">00</span>:<span class="seconds">00</span>
+  </div>
+  <div class="time-row" id="qa-display">
+    <span class="step">Q/A</span><span class="minutes">00</span>:<span class="seconds">00</span>
+  </div>
+</div>
+
+<div id="progress-bar">
+  <div id="progress"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
