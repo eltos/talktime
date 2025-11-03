@@ -108,7 +108,7 @@ button:hover {
 }
 
 .time-row {
-  font-size: 8vw;
+  font-size: min(8vw, 16vh);
   font-family: "Arial", sans-serif;
   align-items: center;
   color: #ccc;
@@ -125,7 +125,7 @@ button:hover {
   justify-content: end;
   width: 20vw;
   font-weight: bold;
-  font-size: 20vw;
+  font-size: min(20vw, 40vh);
   padding: 2vh 3vw 2vh 10vw;
 }
 
@@ -138,6 +138,8 @@ button:hover {
 }
 
 #progress-bar {
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 5vh;
   background: #222;
