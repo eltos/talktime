@@ -149,6 +149,10 @@ button:hover {
   transition: width 0.1s ease-in-out;
 }
 
+.hidden {
+  display: none;
+}
+
 
 .blink {
   animation: blink 1s steps(10, start) infinite;

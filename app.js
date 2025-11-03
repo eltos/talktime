@@ -9,15 +9,17 @@ const talkDisplay = document.getElementById('talk-display');
 const qaDisplay = document.getElementById('qa-display');
 const progress = document.getElementById('progress');
 
+const timeInputs = document.getElementById('time-inputs');
 const talkInput = document.getElementById('talk-time');
 const qaInput = document.getElementById('qa-time');
-const startButton = document.getElementById('start-btn');
-const autorunButton = document.getElementById('autorun-btn');
-const pauseButton = document.getElementById('pause-btn');
-const resetButton = document.getElementById('reset-btn');
-const pinButton = document.getElementById('pin-btn');
+const startBtn = document.getElementById('start-btn');
+const autorunBtn = document.getElementById('autorun-btn');
+const pauseBtn = document.getElementById('pause-btn');
+const resetBtn = document.getElementById('reset-btn');
+const pinBtn = document.getElementById('pin-btn');
 const presetContainer = document.getElementById('presets');
 const clock = document.getElementById('clock');
+const colorInputs = document.getElementById('color-inputs');
 const orangeInput = document.getElementById('orange-percent');
 const redInput = document.getElementById('red-percent');
 const shareBtn = document.getElementById('share-btn');
@@ -70,15 +72,15 @@ shareBtn.onclick = () => {
     window.prompt("Persistent link:", url.toString())
   );
 }
-startButton.onclick = startTimer;
-pauseButton.onclick = pauseTimer;
-resetButton.onclick = () => {
+startBtn.onclick = startTimer;
+pauseBtn.onclick = pauseTimer;
+resetBtn.onclick = () => {
   autorunEnabled = false;
   presetIndex = -1;
   resetTimer()
 };
-pinButton.onclick = () => addPreset(talkInput.value, qaInput.value);
-autorunButton.onclick = () => {
+pinBtn.onclick = () => addPreset(talkInput.value, qaInput.value);
+autorunBtn.onclick = () => {
   autorunEnabled = !autorunEnabled;
   if (autorunEnabled && !timerRunning) {
     if (presetIndex < 0) presetIndex = 0;
@@ -88,7 +90,7 @@ autorunButton.onclick = () => {
   updateDisplay();
 };
 orangeInput.onchange = () => {
-  orangeTime = Number.parseFloat(orangeInput.value) / 100;
+  orangeTime = Number.parseFloat(orangeInput.value) / 100 || 0;
   if (redTime < orangeTime) {
     orangeTime = redTime;
     redInput.value = 100 * orangeTime;
@@ -96,7 +98,7 @@ orangeInput.onchange = () => {
   updateDisplay();
 }
 redInput.onchange = () => {
-  redTime = Number.parseFloat(redInput.value) / 100;
+  redTime = Number.parseFloat(redInput.value) / 100 || 0;
   if (redTime < orangeTime) {
     orangeTime = redTime;
     orangeInput.value = 100 * redTime;
@@ -116,9 +118,8 @@ fullscreenBtn.onclick = async () => {
 };
 
 document.addEventListener('keyup', e => {
-  console.debug(e.target.tagName);
-  if (e.key === 's') startButton.click()
-  if (e.key === 'r') resetButton.click()
+  if (e.key === 's') startBtn.click()
+  if (e.key === 'r') resetBtn.click()
   for (let i = 0; i < presetContainer.children.length; i++) {
     if (e.target.tagName.toLowerCase() !== "input" && e.key === `${i + 1}`) presetContainer.children[i].click();
   }
@@ -135,13 +136,15 @@ resetTimer();
 updateDisplay();
 setInterval(tick, 1000)
 
+window.matchMedia('(display-mode: fullscreen)').addEventListener('change', () => updateDisplay());
+
 
 function addPreset(talk, qa) {
   const index = presetContainer.children.length
   const div = document.createElement('button');
   div.classList.add('preset');
-  div.dataset.talk = talk;
-  div.dataset.qa = qa;
+  div.dataset.talk = (talk || 1).toString();
+  div.dataset.qa = (qa || 0).toString();
   div.dataset.index = `${index}`;
   div.innerHTML = `${div.dataset.talk} + ${div.dataset.qa}`;
   div.title = `Preset ${index + 1}` + (index < 9 ? ` (Hotkey: ${index + 1})` : "");
@@ -200,17 +203,17 @@ function updateDisplay() {
     timerDisplay.classList.remove('blink');
   }
 
-  startButton.style.display = timerRunning ? 'none' : "unset";
-  pauseButton.style.display = timerRunning ? "unset" : 'none';
-  autorunButton.style.display = presetContainer.children.length >= 2 ? 'block' : 'none';
+  startBtn.style.display = timerRunning ? 'none' : "unset";
+  pauseBtn.style.display = timerRunning ? "unset" : 'none';
+  autorunBtn.style.display = presetContainer.children.length >= 2 ? 'block' : 'none';
   if (autorunEnabled) {
-    autorunButton.classList.add('autorun');
+    autorunBtn.classList.add('autorun');
   } else {
-    autorunButton.classList.remove('autorun');
+    autorunBtn.classList.remove('autorun');
   }
 
   for (let i = 0; i < presetContainer.children.length; i++) {
-    if (autorunEnabled && i === presetIndex) {
+    if (i === presetIndex) {
       presetContainer.children[i].classList.add("autorun");
     } else {
       presetContainer.children[i].classList.remove("autorun");
@@ -220,6 +223,16 @@ function updateDisplay() {
 
   clock.textContent = clockFormatter.format(new Date());
   muteBtn.textContent = beep ? "🔊" : "🔇";
+
+  const fullscreen = window.matchMedia('(display-mode: fullscreen)').matches;
+  for (const elem of [pinBtn, colorInputs, shareBtn]) {
+    if (fullscreen) elem.classList.add("hidden")
+    else elem.classList.remove("hidden")
+  }
+  for (const elem of [timeInputs, resetBtn]) {
+    if (fullscreen && presetContainer.children.length > 1) elem.classList.add("hidden")
+    else elem.classList.remove("hidden")
+  }
 
 }
 
@@ -268,9 +281,9 @@ function pauseTimer() {
 
 function resetTimer() {
   timerRunning = false;
-  talkDuration = talkInput.value * 60;
+  talkDuration = (talkInput.value || 1) * 60;
   talkRemaining = talkDuration
-  qaDuration = qaInput.value * 60;
+  qaDuration = (qaInput.value || 0) * 60;
   qaRemaining = qaDuration;
   updateDisplay();
 }
