@@ -71,7 +71,7 @@ shareBtn.onclick = () => {
   if (autorunEnabled) url.searchParams.set("auto", autorunEnabled ? "1" : "0");
   if (beep) url.searchParams.set("beep", beep ? "1" : "0");
   if (presetIndex >= 0) url.searchParams.set("preset", presetIndex.toString());
-  const presets = [...presetContainer.children].map((div) => `${div.dataset.talk} + ${div.dataset.qa}`).join("|");
+  const presets = [...presetContainer.children].map((div) => `${div.dataset.talk}+${div.dataset.qa}`).join("|");
   if (presets) url.searchParams.set("presets", presets);
   navigator.clipboard.writeText(url.toString()).then(() =>
     window.alert("Persistent link was copied to the clipboard")
