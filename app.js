@@ -27,6 +27,13 @@ const muteBtn = document.getElementById('mute-btn');
 const fullscreenBtn = document.getElementById('fullscreen-btn');
 const progressBar = document.getElementById('progress-bar');
 
+const clockFormatter = new Intl.DateTimeFormat(navigator.language, {
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,
+});
+
 let timerRunning = false;
 let talkRemaining = 0;
 let qaRemaining = 0;
@@ -124,13 +131,6 @@ document.addEventListener('keyup', e => {
     if (e.target.tagName.toLowerCase() !== "input" && e.key === `${i + 1}`) presetContainer.children[i].click();
   }
 }, false);
-
-const clockFormatter = new Intl.DateTimeFormat(navigator.language, {
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false,
-});
 
 resetTimer();
 updateDisplay();
