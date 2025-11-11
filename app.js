@@ -25,6 +25,7 @@ const redInput = document.getElementById('red-percent');
 const shareBtn = document.getElementById('share-btn');
 const muteBtn = document.getElementById('mute-btn');
 const fullscreenBtn = document.getElementById('fullscreen-btn');
+const aboutBtn = document.getElementById('about-btn');
 const progressBar = document.getElementById('progress-bar');
 
 const clockFormatter = new Intl.DateTimeFormat(navigator.language, {
@@ -78,6 +79,9 @@ shareBtn.onclick = () => {
   ).catch(() =>
     window.prompt("Persistent link:", url.toString())
   );
+}
+aboutBtn.onclick = () => {
+  location.href = "https://github.com/eltos/talktime";
 }
 startBtn.onclick = startTimer;
 pauseBtn.onclick = pauseTimer;
@@ -225,7 +229,7 @@ function updateDisplay() {
   muteBtn.textContent = beep ? "🔊" : "🔇";
 
   const fullscreen = window.matchMedia('(display-mode: fullscreen)').matches;
-  for (const elem of [pinBtn, colorInputs, shareBtn]) {
+  for (const elem of [pinBtn, colorInputs, shareBtn, aboutBtn]) {
     if (fullscreen) elem.classList.add("hidden")
     else elem.classList.remove("hidden")
   }
